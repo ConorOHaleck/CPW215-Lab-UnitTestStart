@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace BusinessLogic
 {
@@ -11,7 +12,28 @@ namespace BusinessLogic
         /// <returns></returns>
         public static bool IsSsn(string ssn)
         {
-            throw new NotImplementedException();
+            Regex rx = new Regex("\\b\\d{3}[-]\\d{2}[-]\\d{4}\\b");
+
+            foreach(char c in ssn)
+            {
+                if (Char.IsLetter(c))
+                {
+                    return false;
+                }
+            }
+            
+            if (ssn.Contains("-") && rx.IsMatch(ssn))
+            {
+                return true;
+            }
+            else if (ssn.Length == 9)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -23,7 +45,13 @@ namespace BusinessLogic
         /// <returns></returns>
         public static bool IsWithinRange(int numToTest, int minValue, int maxValue)
         {
-            throw new NotImplementedException();
+            if(numToTest >= minValue && numToTest <= maxValue){
+                return true;
+            }
+
+            else{
+                return false;
+            }
         }
     }
 }
